@@ -151,7 +151,8 @@ column_names_to_normalise = ['Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft
 #fill missing data with mean
 for names in column_names_to_normalise:
     df[names] = df[names].fillna((df[names].mean()))    
-#normalise data
+    
+#normalise data (a better model was obtained without normalisation)
 #nums = df[column_names_to_normalise].values
 #min_max_scaler = MinMaxScaler()
 #x_scaled = min_max_scaler.fit_transform(nums)
