@@ -195,8 +195,10 @@ input_drop=input()
 print("Enter Length (ft):")
 input_length=input()
 
+#apply model to input data
 test=logreg.predict(pd.DataFrame({"Inversions": [input_inversions],"Speed /mph": [input_speed], "Height/ ft": [input_height], "Drop /ft": [input_drop] ,"Length /ft": [input_length]}))
 
+#return result
 if test == 1:
     print("Rollercoaster is predicted to succeed")
 else:
