@@ -82,9 +82,6 @@ def scrapedata(retrievals,df):
         sleep(0.5)
     return(df)
 
-
-
-
 #for scraping the website and starting a new dataset
 print("Do you want to scrape www.rcdb.com to build the dataset from scratch? yes/no")
 if input()== 'yes':
@@ -146,8 +143,6 @@ df = df.replace("Under Construction", 1)
 df = df.replace("In Storage", 0)
 df = df.replace("Defunct", 0)
 df = df.replace("SBNO", 0)
-
-
 
 column_names_to_normalise = ['Inversions', 'Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft']
 #fill missing data with mean
