@@ -120,18 +120,20 @@ df = df.drop_duplicates()
 df = df.dropna(thresh=8, axis=0)
 
 #plot boxplots for numeric values
-plt.subplot(1,4,1)
+plt.subplot(1,5,1)
+boxplot = df.boxplot(column='Inversions')
+plt.subplot(1,5,2)
 boxplot = df.boxplot(column='Speed /mph')
-plt.subplot(1,4,2)
+plt.subplot(1,5,3)
 boxplot = df.boxplot(column='Height /ft')
-plt.subplot(1,4,3)
+plt.subplot(1,5,4)
 boxplot = df.boxplot(column='Length /ft')
-plt.subplot(1,4,4)
+plt.subplot(1,5,5)
 boxplot = df.boxplot(column='Drop /ft')
 plt.subplots_adjust(left=0.07, bottom=0.11, right=0.97, top=0.88, wspace=0.41, hspace=0.2)
 
 #save figure
-plt.savefig('Speed_Height_Length_Drop_Boxplots.png')
+plt.savefig('Inversions_Speed_Height_Length_Drop_Boxplots.png')
 plt.show()
 
 #remove non numeric columns and rows with Status missing
@@ -147,7 +149,7 @@ df = df.replace("SBNO", 0)
 
 
 
-column_names_to_normalise = ['Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft']
+column_names_to_normalise = ['Inversions', 'Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft']
 #fill missing data with mean
 for names in column_names_to_normalise:
     df[names] = df[names].fillna((df[names].mean()))    
@@ -181,6 +183,9 @@ print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 print("Precision:",metrics.precision_score(y_test, y_pred))
 print("Recall:",metrics.recall_score(y_test, y_pred))
 
+#prompt user to enter parameters
+print("Enter number of Inversions:")
+input_inversions=input()
 print("Enter Speed (mph):")
 input_speed=input()
 print("Enter Height (ft):")
@@ -190,7 +195,7 @@ input_drop=input()
 print("Enter Length (ft):")
 input_length=input()
 
-test=logreg.predict(pd.DataFrame({"Speed /mph": [input_speed], "Height/ ft": [input_height], "Drop /ft": [input_drop] ,"Length /ft": [input_length]}))
+test=logreg.predict(pd.DataFrame({"Inversions": [input_inversions],"Speed /mph": [input_speed], "Height/ ft": [input_height], "Drop /ft": [input_drop] ,"Length /ft": [input_length]}))
 
 if test == 1:
     print("Rollercoaster is predicted to succeed")
