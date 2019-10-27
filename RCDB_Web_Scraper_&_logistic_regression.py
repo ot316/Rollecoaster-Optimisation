@@ -75,7 +75,7 @@ def scrapedata(retrievals,df):
             manufacturer = None
         #create dictionary for scraped data
         data = {'Name':name, 'Park':park, 'Location':location, 'Status':status, 'Inversions':inversions, 'Speed /mph':speed, 
-                'Height':height, 'Drop /ft':drop, 'Length /ft':length, 'G-Force':g_force, 'Layout':layout, 'Manufacturer':manufacturer}
+                'Height /ft':height, 'Drop /ft':drop, 'Length /ft':length, 'G-Force':g_force, 'Layout':layout, 'Manufacturer':manufacturer}
         #add data to empty dataframe
         df = df.append(data, ignore_index=True)
         print(i+1,"/", retrievals)
@@ -128,6 +128,7 @@ plt.subplot(1,4,3)
 boxplot = df.boxplot(column='Length /ft')
 plt.subplot(1,4,4)
 boxplot = df.boxplot(column='Drop /ft')
+plt.subplots_adjust(left=0.07, bottom=0.11, right=0.97, top=0.88, wspace=0.41, hspace=0.2)
 
 #save figure
 plt.savefig('Speed_Height_Length_Drop_Boxplots.png')
@@ -139,6 +140,8 @@ df.dropna(subset=['Status'])
 
 #change operating and defunct to 1 and 0
 df = df.replace("Operating", 1)
+df = df.replace("Under Construction", 1)
+df = df.replace("In Storage", 0)
 df = df.replace("Defunct", 0)
 df = df.replace("SBNO", 0)
 
@@ -147,7 +150,7 @@ df = df.replace("SBNO", 0)
 column_names_to_normalise = ['Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft']
 #fill missing data with mean
 for names in column_names_to_normalise:
-    df[names] = df[names].fillna((df[names].mean()))
+    df[names] = df[names].fillna((df[names].mean()))    
 #normalise data
 #nums = df[column_names_to_normalise].values
 #min_max_scaler = MinMaxScaler()
@@ -157,6 +160,9 @@ for names in column_names_to_normalise:
 
 #reorganise index
 df = df.reset_index()
+
+#Save processed Data
+df.to_csv("Processed_Data.csv")
 
 #Define features (X) and labels (Y)
 X = df[column_names_to_normalise]
