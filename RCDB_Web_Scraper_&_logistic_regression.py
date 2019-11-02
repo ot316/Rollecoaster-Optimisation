@@ -5,11 +5,16 @@ from time import sleep
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sn
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_curve
 from sklearn import metrics
+from scipy.special import expit
 
+#set styles
 plt.style.use('ggplot')
 plt.rc("font", size=7)
 
@@ -117,20 +122,23 @@ df = df.drop_duplicates()
 df = df.dropna(thresh=8, axis=0)
 
 #plot boxplots for numeric values
-plt.subplot(1,5,1)
+plt.subplot(1,6,1)
 boxplot = df.boxplot(column='Inversions')
-plt.subplot(1,5,2)
+plt.subplot(1,6,2)
 boxplot = df.boxplot(column='Speed /mph')
-plt.subplot(1,5,3)
+plt.subplot(1,6,3)
 boxplot = df.boxplot(column='Height /ft')
-plt.subplot(1,5,4)
+plt.subplot(1,6,4)
 boxplot = df.boxplot(column='Length /ft')
-plt.subplot(1,5,5)
+plt.subplot(1,6,5)
 boxplot = df.boxplot(column='Drop /ft')
+plt.subplot(1,6,6)
+boxplot = df.boxplot(column='G-Force')
 plt.subplots_adjust(left=0.07, bottom=0.11, right=0.97, top=0.88, wspace=0.41, hspace=0.2)
 
 #save figure
-plt.savefig('Inversions_Speed_Height_Length_Drop_Boxplots.png')
+plt.suptitle('Subplots of Numeric Metrics')
+plt.savefig('Inversions_Speed_Height_Length_Drop_G-Force_Boxplots.png')
 plt.show()
 
 #remove non numeric columns and rows with Status missing
@@ -144,7 +152,7 @@ df = df.replace("In Storage", 0)
 df = df.replace("Defunct", 0)
 df = df.replace("SBNO", 0)
 
-column_names_to_normalise = ['Inversions', 'Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft']
+column_names_to_normalise = ['Inversions', 'Speed /mph', 'Height /ft', 'Length /ft', 'Drop /ft', 'G-Force']
 #fill missing data with mean
 for names in column_names_to_normalise:
     df[names] = df[names].fillna((df[names].mean()))    
@@ -160,23 +168,49 @@ for names in column_names_to_normalise:
 df = df.reset_index()
 
 #Save processed Data
-df.to_csv("Processed_Data.csv")
+df.to_csv("Processed_Data.csv", index_col = 0)
 
 #Define features (X) and labels (Y)
 X = df[column_names_to_normalise]
 Y = df['Status']
 
-X_train,X_test,y_train,y_test=train_test_split(X,Y,test_size=0.25,random_state=0)
+#split data into training and testing
+X_train,X_test,y_train,y_test=train_test_split(X,Y,test_size=0.25,random_state=42)
 
 logreg = LogisticRegression()
 # fit the model with data
 logreg.fit(X_train,y_train)
 y_pred=logreg.predict(X_test)
 
+#plot confusion matrix
 confusion_matrix = metrics.confusion_matrix(y_test, y_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 print("Precision:",metrics.precision_score(y_test, y_pred))
 print("Recall:",metrics.recall_score(y_test, y_pred))
+sn.set(font_scale=1.4)
+sn.heatmap(confusion_matrix, annot=True,annot_kws={"size": 16})
+plt.title('Confusion Matrix')
+
+#save fig
+plt.savefig('Confusion_Matrix.png')
+plt.show()
+
+#plot ROC
+logit_roc_auc = roc_auc_score(y_test, logreg.predict(X_test))
+fpr, tpr, thresholds = roc_curve(y_test, logreg.predict_proba(X_test)[:,1])
+plt.figure(figsize=(12,7))
+plt.plot(fpr, tpr, label='Logistic Regression')
+plt.plot([0, 1], [0, 1],'r--', label='Random Model')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC Curve)')
+plt.legend(loc="lower right")
+
+#save fig
+plt.savefig('ROC_plot.png')
+plt.show()
 
 #prompt user to enter parameters
 print("Enter number of Inversions:")
@@ -189,15 +223,14 @@ print("Enter Drop (ft):")
 input_drop=input()
 print("Enter Length (ft):")
 input_length=input()
+print("Enter G-Force")
+input_g_force=input()
 
 #apply model to input data
-test=logreg.predict(pd.DataFrame({"Inversions": [input_inversions],"Speed /mph": [input_speed], "Height/ ft": [input_height], "Drop /ft": [input_drop] ,"Length /ft": [input_length]}))
+test=logreg.predict(pd.DataFrame({"Inversions": [input_inversions],"Speed /mph": [input_speed], "Height/ ft": [input_height], "Drop /ft": [input_drop] ,"Length /ft": [input_length] ,"G-Force": [input_g_force]}))
 
 #return result
 if test == 1:
     print("Rollercoaster is predicted to succeed")
 else:
     print("Rollercoaster is predicted to fail")
-
-
-
