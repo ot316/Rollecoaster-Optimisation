@@ -122,6 +122,7 @@ df = df.drop_duplicates()
 df = df.dropna(thresh=8, axis=0)
 
 #plot boxplots for numeric values
+plt.figure(figsize=(10,6))
 plt.subplot(1,6,1)
 boxplot = df.boxplot(column='Inversions')
 plt.subplot(1,6,2)
@@ -158,17 +159,17 @@ for names in column_names_to_normalise:
     df[names] = df[names].fillna((df[names].mean()))    
     
 #normalise data (a better model was obtained without normalisation)
-#nums = df[column_names_to_normalise].values
-#min_max_scaler = MinMaxScaler()
-#x_scaled = min_max_scaler.fit_transform(nums)
-#df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalise, index = df.index)
-#df[column_names_to_normalise] = df_temp
+nums = df[column_names_to_normalise].values
+min_max_scaler = MinMaxScaler()
+x_scaled = min_max_scaler.fit_transform(nums)
+df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalise, index = df.index)
+df[column_names_to_normalise] = df_temp
 
 #reorganise index
-df = df.reset_index()
+df = df.reset_index(drop=True)
 
 #Save processed Data
-df.to_csv("Processed_Data.csv", index_col = 0)
+df.to_csv("Processed_Data.csv")
 
 #Define features (X) and labels (Y)
 X = df[column_names_to_normalise]
@@ -199,7 +200,7 @@ plt.show()
 logit_roc_auc = roc_auc_score(y_test, logreg.predict(X_test))
 fpr, tpr, thresholds = roc_curve(y_test, logreg.predict_proba(X_test)[:,1])
 plt.figure(figsize=(12,7))
-plt.plot(fpr, tpr, label='Logistic Regression')
+plt.plot(fpr, tpr, label='Logistic Regression')    
 plt.plot([0, 1], [0, 1],'r--', label='Random Model')
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
