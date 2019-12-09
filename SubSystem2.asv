@@ -197,7 +197,7 @@ MaximumVelocityfmin = -(MaximumVelocityscaledfmin*rangeN(1)) - minimumN(1)
 %MaximumVelocityga = -(MaximumVelocityscaledga*rangeN(1)) - minimumN(1)
 
 figure(7)
-fun1 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*0.5 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*0.5 + beta(6,1)*x2 + beta(7,1)*0.5);
+fun1 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*x1 + beta(3,1)*0.5 + beta(4,1)*0.5 + beta(5,1)*0.5 + beta(6,1)*x2 + beta(7,1)*0.5);
 fsurf(fun1, [0 1])
 title('Regression equation of Maximum Velocity 1')
 xlabel('Normalised Total Time Over Drop')
@@ -206,7 +206,7 @@ zlabel('Normalised Maximum Velocity')
 
 
 figure(8)
-fun2 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*0.5 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*0.5 + beta(6,1)*0.5 + beta(7,1)*x2);
+fun2 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*x1 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*0.5 + beta(6,1)*0.5 + beta(7,1)*x2);
 fsurf(fun2, [0 1])
 title('Regression equation of Maximum Velocity 2')
 xlabel('Normalised Total Time Over Drop')
@@ -222,11 +222,11 @@ ylabel('Normalised Drop Distance')
 zlabel('Normalised Maximum Velocity')
 
 figure(10)
-fun2 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*0.5 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*x2 + beta(6,1)*0.5 + beta(7,1)*0.5);
+fun2 = @(x1,x2) (beta(1,1)*x2 + beta(2,1)*0.5 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*0.5 + beta(6,1)*0.5 + beta(7,1)*0.5);
 fsurf(fun2, [0 1])
 title('Regression equation of Maximum Velocity 4')
 xlabel('Normalised Total Time Over Drop')
-ylabel('Normalised Time over initial Curve')
+ylabel('Normalised G Force')
 zlabel('Normalised Maximum Velocity')
 
 %% Generate Data Function
