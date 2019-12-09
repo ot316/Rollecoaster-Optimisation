@@ -177,7 +177,7 @@ tic
 [xfmin, MaximumVelocityscaledfmin] = fmincon(fun, x0, A, b, Aeq, beq, LB, UB, nonlcon, fminoptions);
 toc
 tic
-%[xga, MaximumVelocityscaledga] = ga(fun,7,A,b,Aeq,beq,LB,UB,[],gaoptions);
+[xga, MaximumVelocityscaledga] = ga(fun,7,A,b,Aeq,beq,LB,UB,[],gaoptions);
 toc
 %remove normalisation
 
