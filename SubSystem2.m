@@ -69,8 +69,8 @@ disp('Database saved as data_base.csv');
 
 %% Plot single data base entry
 figure(2)
-%call GenerateData function with plot flag set to true for arbitrary values.
-plot = GenerateData(30, 8, 12, 35, air_density, frontal_area, drag_coefficient, g, mass, friction_coefficient, true);
+%call GenerateData function with plot flag set to true for mean values.
+plot = GenerateData(65000, 15000,80, 30, air_density, frontal_area, drag_coefficient, g, mass, friction_coefficient, true);
 
 
 %% Plotting Simulation Data
@@ -183,7 +183,7 @@ toc
 
 for i =1:7
     xfmin(i) = (xfmin(i) * rangeN(i + 1)) + minimumN(i + 1);
-    %xga(i) = (xga(i) * rangeN(i + 1)) + minimumN(i + 1);
+    xga(i) = (xga(i) * rangeN(i + 1)) + minimumN(i + 1);
 end
 
 xfmin(1) = xfmin(1)*1000;
@@ -193,8 +193,8 @@ xfmin
 MaximumVelocityfmin = -(MaximumVelocityscaledfmin*rangeN(1)) - minimumN(1)
 
 %Genetic Algorithm
-%xga
-%MaximumVelocityga = -(MaximumVelocityscaledga*rangeN(1)) - minimumN(1)
+xga
+MaximumVelocityga = -(MaximumVelocityscaledga*rangeN(1)) - minimumN(1)
 
 figure(7)
 fun1 = @(x1,x2) (beta(1,1)*0.5 + beta(2,1)*0.5 + beta(3,1)*0.5 + beta(4,1)*x1 + beta(5,1)*0.5 + beta(6,1)*x2 + beta(7,1)*0.5);
