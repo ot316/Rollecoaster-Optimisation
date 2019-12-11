@@ -238,12 +238,41 @@ zlabel('Normalised Maximum Velocity')
 optionspareto = optimoptions('paretosearch','PlotFcn','psplotparetof')
 
 % original velocity equation combined wih equation for centripetal acceleration to maximise both speed and G-force
-
-fun = @(x) [-(beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7));
+tic
+funpareto = @(x) [-(beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7));
                   (((beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7)))^2)/(g*x((7))) ]
               
 rng default % For reproducibility
-x = paretosearch(fun,7,A,b,Aeq,beq,LB,UB,[],optionspareto);
+x = paretosearch(funpareto,7,A,b,Aeq,beq,LB,UB,[],optionspareto);
+toc
+
+%% fgoalattain
+tic
+funfgoalattain = @(x) [-(beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7));
+                  (-((beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7)))^2)/(x((7)))];
+              
+goal = [1,1];
+weight = [0.8,1];
+xfgoalattain = fgoalattain(funfgoalattain,x0,goal,weight,A,b,Aeq,beq,LB,UB) ;
+
+toc
+
+
+% find values returned from fgola attain parameters
+
+f1fgoalattainscaled = -(beta(1,1)*xfgoalattain(1) + beta(2,1)*xfgoalattain(2) + beta(3,1)*xfgoalattain(3) + beta(4,1)*xfgoalattain(4) + beta(5,1)*xfgoalattain(5) + beta(6,1)*xfgoalattain(6) + beta(7,1)*xfgoalattain(7)) ;
+f2fgoalattainscaled = (-(beta(1,1)*xfgoalattain(1) + beta(2,1)*xfgoalattain(2) + beta(3,1)*xfgoalattain(3) + beta(4,1)*xfgoalattain(4) + beta(5,1)*xfgoalattain(5) + beta(6,1)*xfgoalattain(6) + beta(7,1)*xfgoalattain(7))^2) /(xfgoalattain(7));
+
+
+%remove normalisation
+
+for i =1:7
+    xfgoalattain(i) = (xfgoalattain(i) * rangeN(i + 1)) + minimumN(i + 1);
+end
+
+xfgoalattain
+f1fgoalattain = -(f1fgoalattainscaled*rangeN(1)) - minimumN(1)
+f2fgoalattain = (-(f2fgoalattainscaled*rangeN(4)) - minimumN(4))/9.81
 
 %% Generate Data Function
 function [max_velocity, drop_distance, start_slope_velocity, g_force] = GenerateData(total_time, time_of_top_curve, theta, radius, rho, A, CD, g, mass, mu, flag)
