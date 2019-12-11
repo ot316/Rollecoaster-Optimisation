@@ -123,17 +123,20 @@ database_y_test = data_base_y(splitPt:end,:);
 
 
 beta = mvregress(database_X_train, database_y_train)
-mdl = fitlm(database_X_train,database_y_train); % not robust
-mdlr = fitlm(database_X_train,database_y_train,'RobustOpts','on'); %robust
 
-figure(5)
-plotResiduals(mdl)
+%plotting residual of a single variable model with and withour robust options
 
-figure(6)
-subplot(1,2,1)
-plotResiduals(mdl,'probability')
-subplot(1,2,2)
-plotResiduals(mdlr,'probability')
+% mdl = fitlm(database_X_train,database_y_train); % not robust
+% mdlr = fitlm(database_X_train,database_y_train,'RobustOpts','on'); %robust
+% 
+% figure(5)
+% plotResiduals(mdl)
+% 
+% figure(6)
+% subplot(1,2,1)
+% plotResiduals(mdl,'probability')
+% subplot(1,2,2)
+% plotResiduals(mdlr,'probability')
 
 % R squared Value
 Rsq_data_base = 1 - norm(database_X_test*beta - database_y_test)^2/norm(database_y_test-mean(database_y_test))^2
@@ -228,6 +231,19 @@ title('Regression equation of Maximum Velocity 4')
 xlabel('Normalised Total Time Over Drop')
 ylabel('Normalised Time over initial Curve')
 zlabel('Normalised Maximum Velocity')
+
+
+%% Problem reformulation with multiobjective optimisation
+
+optionspareto = optimoptions('paretosearch','PlotFcn','psplotparetof')
+
+% original velocity equation combined wih equation for centripetal acceleration to maximise both speed and G-force
+
+fun = @(x) [-(beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7));
+                  (((beta(1,1)*x(1) + beta(2,1)*x(2) + beta(3,1)*x(3) + beta(4,1)*x(4) + beta(5,1)*x(5) + beta(6,1)*x(6) + beta(7,1)*x(7)))^2)/(g*x((7))) ]
+              
+rng default % For reproducibility
+x = paretosearch(fun,7,A,b,Aeq,beq,LB,UB,[],optionspareto);
 
 %% Generate Data Function
 function [max_velocity, drop_distance, start_slope_velocity, g_force] = GenerateData(total_time, time_of_top_curve, theta, radius, rho, A, CD, g, mass, mu, flag)
