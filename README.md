@@ -18,6 +18,27 @@ or if more data points are being appended to an existing database and how many d
 
 ### Subsystem 1
 ### Subsystem 2
-The code for subsystem 2 is combined into a single matlab script for simplicity. The code calls a function to generate the database which is saved both inside the main script and as a separate matlab function file.  The main code runs through the following processes:
+The code for subsystem 2 is combined into a single matlab script for simplicity. The code calls a function to generate the database which is saved both inside the main script and as a separate matlab function file.  <br />
+The main code runs through the following processes:
+1. Define each variable as arrays between constraint values
+2. Define latin hypercube sampling arrays for each variable
+3. Build a database with the sampled data
+4. Shuffle Data
+5. Normalise Data
+6. Split data into labels and features
+7. Split data into testing and training dataset
+8. Train linear regression model
+9. Find R squared value
+10. Use fmincon on the linear regression function
+11. Use gnetic algorithm on the linear regression function
+12. Remove normalisation
+13. Conduct parametric analysis
+14. Reformulate problem as multiobjective function
+15. Find pareto set
+16. Use fgoalattain on the multi objective formulas
+
+
+
+
 ### Subsystem 3
 ### Subsystem 4
