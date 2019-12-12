@@ -22,8 +22,8 @@ Reformulate problem as multiobjective function
 Find pareto set
 Use fgoalattain on the multi objective formulas
 
-# Execution time
+## Execution time
 The size of the database can be altered by changing the value of the variable points on line 4. Building the database has a polynomial time compexity therefore it is recommended to not exceed the value of 20. The code takes roughly 1 minute to run.
 
-# Dependencies
+## Dependencies
 Matlab 2019b
