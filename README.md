@@ -16,8 +16,8 @@ to the logistic regression model. The code conducts analysis on how accurate the
 and returns various relevant plots saved in the folder. The time the code takes to execute depends on wether a new database is being built,
 or if more data points are being appended to an existing database and how many data points are being retrieved/added. It is recommended to run the code with the pre-built dataset rather than building a new one. <br /> This is explained in terminal when the code is run.
 
-### Subsystem 1
-### Subsystem 2
+### Subsystem 1 - Sophie Owen
+### Subsystem 2 - Oli Thompson
 The code for subsystem 2 is combined into a single matlab script for simplicity. The code calls a function to generate the database which is saved both inside the main script and as a separate matlab function file.  <br />
 The main code runs through the following processes:
 1. Define each variable as arrays between constraint values
@@ -40,5 +40,5 @@ The main code runs through the following processes:
 The size of the database can be altered by changing the value of the variable points on line 4. Building the database has a polynomial time compexity therefore it is recommended to not exceed the value of 20. The code takes roughly 1 minute to run.
 
 
-### Subsystem 3
-### Subsystem 4
+### Subsystem 3 - Matthew Last
+### Subsystem 4 - Federico Tiersen
