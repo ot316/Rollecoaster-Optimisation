@@ -14,7 +14,7 @@ The code conducts analysis on how accurate the logistic
 regression model is and returns various relevant plots saved
 in the folder. 
 
-##Execution Time
+## Execution Time
 
 The time the code takes to execute depends on
 wether a new database is being built, or if more data points are
@@ -23,5 +23,5 @@ are being retrieved/added. It is recommended to run the code
 with the pre-built dataset rather than building a new one.
 This is explained in the terminal when the code is run.
 
-#Dependencies
+# Dependencies
 Matlab 2019b
