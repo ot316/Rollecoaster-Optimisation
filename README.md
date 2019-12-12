@@ -37,7 +37,7 @@ The main code runs through the following processes:
 15. Find pareto set
 16. Use fgoalattain on the multi objective formulas
 
-
+The size of the database can be altered by changing the value of the variable points on line 4. Building the database has a polynomial time compexity therefore it is recommended to not exceed the value of 20. The code takes roughly 1 minute to run.
 
 
 ### Subsystem 3
