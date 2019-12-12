@@ -23,5 +23,5 @@ are being retrieved/added. It is recommended to run the code
 with the pre-built dataset rather than building a new one.
 This is explained in the terminal when the code is run.
 
-# Dependencies
+## Dependencies
 Matlab 2019b
