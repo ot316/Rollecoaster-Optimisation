@@ -30,7 +30,7 @@ The main code runs through the following processes:
 8. Train linear regression model
 9. Find R squared value
 10. Use fmincon on the linear regression function
-11. Use gnetic algorithm on the linear regression function
+11. Use genetic algorithm on the linear regression function
 12. Remove normalisation
 13. Conduct parametric analysis
 14. Reformulate problem as multiobjective function
