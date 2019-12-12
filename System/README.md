@@ -24,4 +24,5 @@ with the pre-built dataset rather than building a new one.
 This is explained in the terminal when the code is run.
 
 ## Dependencies
-Matlab 2019b
+The python dependencies are listed in requirements.txt. The dependencies can be installed by 
+opening a shell in the system folder and executing pip install requirements.txt
