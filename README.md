@@ -1,4 +1,4 @@
-# Group 9 Readme 
+# DE4 Opti Coursework 2019/20: Code Submission
 
 ### Root Directory
 The code is organised into system and subsystems in the root directory. The file requirements.txt 
