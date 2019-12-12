@@ -1,4 +1,9 @@
 # System Folder
+
+## Main Script
+The main script is called RCDB_Web_Scraper_&_logistic_regression.py
+
+## Explanation
 The subsystems have no interdependencies or trade-offs
 and as such the system level optimisation consists of
 minimising the functions of each subsystem. For this 
