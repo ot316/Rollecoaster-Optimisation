@@ -14,10 +14,10 @@ It also runs a logistic regression model to determine which physical properties 
 result in it being successful or defunct, with the ability to take user input values and apply them 
 to the logistic regression model. The code conducts analysis on how accurate the logistic regression model is
 and returns various relevant plots saved in the folder. The time the code takes to execute depends on wether a new database is being built,
-or if more data points are being appended to an existing database and how many data points are being retrieved/added. It is recommended to run the code with the pre-built dataset rather than building a new one. This is explained in terminal when the code is run.
+or if more data points are being appended to an existing database and how many data points are being retrieved/added. It is recommended to run the code with the pre-built dataset rather than building a new one. <br /> This is explained in terminal when the code is run.
 
 ### Subsystem 1
 ### Subsystem 2
-The code for subsystem 2 is combined into a single matlab script dor simplicity.
+The code for subsystem 2 is combined into a single matlab script for simplicity. The code calls a function to generate the database which is saved both inside the main script and as a separate matlab function file.  The main code runs through the following processes:
 ### Subsystem 3
 ### Subsystem 4
