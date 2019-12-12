@@ -1,27 +1,23 @@
-# System Folder
-The subsystems have no interdependencies or trade-offs
-and as such the system level optimisation consists of
-minimising the functions of each subsystem. For this 
-reason it was unnecessary to write code for the system 
-level optimisation. Inside this folder is Python code
-that was used to scrape an internet database of rollercoasters 
-and conduct an explanatory analysis on the data for research
-purposes. It also runs a logistic regression model to determine 
-which physical properties of the roller-coaster result in it
-being successful or defunct, with the ability to take user 
-input values and apply them to the logistic regression model.
-The code conducts analysis on how accurate the logistic
-regression model is and returns various relevant plots saved
-in the folder. 
+# Subsystem 2
 
-## Execution Time
+## Main Script
+The code for subsystem 2 is combined into a single matlab script for simplicity called SubSystem2.m. The code calls a function to generate the database which is saved both inside the main script and as a separate matlab function file.
+The main code runs through the following processes:
 
-The time the code takes to execute depends on
-wether a new database is being built, or if more data points are
-being appended to an existing database and how many data points
-are being retrieved/added. It is recommended to run the code
-with the pre-built dataset rather than building a new one.
-This is explained in the terminal when the code is run.
-
-## Dependencies
-Matlab 2019b
+Define each variable as arrays between constraint values
+Define latin hypercube sampling arrays for each variable
+Build a database with the sampled data
+Shuffle Data
+Normalise Data
+Split data into labels and features
+Split data into testing and training dataset
+Train linear regression model
+Find R squared value
+Use fmincon on the linear regression function
+Use genetic algorithm on the linear regression function
+Remove normalisation
+Conduct parametric analysis
+Reformulate problem as multiobjective function
+Find pareto set
+Use fgoalattain on the multi objective formulas
+The size of the database can be altered by changing the value of the variable points on line 4. Building the database has a polynomial time compexity therefore it is recommended to not exceed the value of 20. The code takes roughly 1 minute to run.
