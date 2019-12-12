@@ -1,9 +1,11 @@
+tic
 clear variables
 close all
 points = 14; %how many data points from each variable to calculate, beware O(n^4) complexity (10 takes 0.13s, 20 takes 22.92s) 
 
 %% latin hypercube Sampling
 latin_hypercube = lhsdesign(points,4);
+
 
 % setting upper and lower bounds for each variable
 total_time_min = 2000;
@@ -273,7 +275,7 @@ end
 xfgoalattain
 f1fgoalattain = -(f1fgoalattainscaled*rangeN(1)) - minimumN(1)
 f2fgoalattain = (-(f2fgoalattainscaled*rangeN(4)) - minimumN(4))/9.81
-
+toc
 %% Generate Data Function
 function [max_velocity, drop_distance, start_slope_velocity, g_force] = GenerateData(total_time, time_of_top_curve, theta, radius, rho, A, CD, g, mass, mu, flag)
 V0=0; % initial speed
