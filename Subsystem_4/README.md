@@ -7,3 +7,5 @@ Run the main.m file, which calls functions as follows:
 3. geneticAlgorithm solves the problem.
 
 4. patternSearch attempts to solve the problem, but returns an indexing error before converging to the global minimum as the mesh attempts to poll non-integer values.
+
+Please refer to the project report for detailed explanations on the above processes.
