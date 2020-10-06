@@ -4,5 +4,4 @@ tcl
 Include
 pyvenv.cfg
 LICENSE.txt
-.gitignore
 .gitattributes
